@@ -1,0 +1,118 @@
+{% extends 'base_admin.html.twig' %}
+
+
+
+{% block body %}
+
+<br>
+<div class="row">
+    {# ************ Nom Feuillet **************  #}
+    <div class="col-4 jumbotron">
+        <h5>Nom Feuillet :</h5>
+        <table class="table">
+            <thead class=" table-primary">
+                <tr>
+                    <td>Libelle</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in nomfeuillet %}
+                <tr class="table-light">
+                    <td>{{ item.libelle }}</td>
+                    <td><a id="del" class="btn btn-danger" href="{{ path('delete_nom' , {'id' : item.id }) }}"><i class="fa fa-minus"></i></a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="navigation pagination-sm">
+                 {{ knp_pagination_render(nomfeuillet) }} 
+        </div>
+            
+            <form action=" {{ path('add_nom') }} " method="POST">
+            <div class="row">
+            <div class="col-7 form-group">
+            
+            <input type="text" required class="form-control" name="add_nom" id="add_nom" minlength="5" placeholder="Nouveau Nom">
+            </div>
+            <div class="col-1"><button type="submit"  class="btn btn-warning"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+            </div>
+            
+            
+            
+            </form>
+    </div>
+
+    {# ************ Espace **************  #}
+    <div class="col-2"></div>
+    {# ************ Zone **************  #}
+    <div class="col-4 jumbotron">
+        <h5>Zone :</h5>
+        <table class="table">
+            <thead class=" table-primary">
+                <tr>
+                    <td>Libelle</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in zones %}
+                <tr class="table-light">
+                    <td>{{ item.libelle }}</td>
+                    <td><a id="del" class="btn btn-danger js-del" href="{{ path('delete_zone' , {'id' : item.id }) }}"><i class="fa fa-minus"></i></a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="navigation pagination-sm">
+                 {{ knp_pagination_render(zones) }} 
+        </div>
+            
+            <form action=" {{ path('add_zone') }} " method="POST">
+            <div class="row">
+            <div class="col-7 form-group">
+            
+            <input type="text" required class="form-control" name="add_zone" id="add_zone" minlength="5" placeholder="Nouvelle zone">
+            </div>
+            <div class="col-1"><button type="submit"  class="btn btn-warning"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+            </div>
+            
+            
+            
+            </form>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function test(event){
+        event.preventDefault();
+        const url = this.href;
+        let statut = null;
+        let element = this.parentNode.parentNode;
+        axios.get(url).then(function(response){
+            if(response.status === 200){
+            element.innerHTML = "";
+            console.log("ok : " + response.status);
+            }
+        });
+
+         
+        
+    }
+    document.querySelectorAll('#del').forEach(function(link){
+        
+        link.addEventListener('click', test);
+        
+    })
+
+</script>
+
+{% endblock %}

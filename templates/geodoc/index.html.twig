@@ -1,0 +1,213 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+
+{% block body %}
+<div class="row">
+    
+    <div class="col-10">
+    <br>
+        {{form_start(form) }}
+    <div class="row well">
+        <div class="col-4">
+            <div class="form-group">
+            <label for="exampleInputPassword1">Titre</label>
+            <input type="text" class="form-control" name="titre" id="titre" placeholder="Titre">
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Domain Etude</label>
+            <input type="text" class="form-control" name="domain_etude" id="domain_etude" placeholder="Domain">
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Autheur Individue</label>
+            <input type="text" class="form-control" name="autheur_indiv" id="autheur_indiv" placeholder="Auther">
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Autheur Compagnie</label>
+            <input type="" class="form-control" name="autheur_comp" id="autheur_comp" placeholder="Auther">
+            </div>
+            
+        </div>
+        <div class="col-4">
+            
+            <div class="form-group">
+            <label for="exampleInputPassword1">Numero Feuillet</label>
+            <input type="text" class="form-control" name="num_feuillet" id="num_feuillet" placeholder="Numero">
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Date Publication</label>
+            <input type="date" class="form-control" name="date_p" id="date_p" >
+            </div>
+            <div class="form-group">
+                <label class="required" for="zone">Type Document</label>
+                <select id="type" name="type" class="form-control">
+                    <option value="" selected disabled>Choisir Type</option>
+                    {% for item in types %}
+                        <option >{{ item.libelle }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label class="required" for="zone">Nom Feuillet</label>
+                <select id="nom" name="nom" class="form-control">
+                    <option value="" selected disabled>Choisir Nom</option>
+                    {% for item in noms %}
+                        <option >{{ item.libelle }}</option>
+                    {% endfor %}
+                    
+                    
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="required" for="zone">Zone</label>
+                <select id="zone" name="zone" class="form-control">
+                    <option value="" selected disabled>Choisir Zone</option>
+                    {% for item in zones %}
+                        <option >{{ item.libelle }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="required" for="zone">Domain Lithostructural</label>
+                <select id="domain_litho" name="domain_litho" class="form-control">
+                    <option value="" selected disabled>Choisir Domain</option>
+                    {% for item in domains %}
+                        <option >{{ item.libelle }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2"><a class="btn btn-warning" href=""><button type="submit"  class="btn btn-warning"><i class="fa fa-search" aria-hidden="true"></i></span></button></a></div>
+    </div>
+        
+
+{{form_end(form)}}
+        
+    </div>
+    <div class="col-1">
+        {% if app.user.profile.id == 2 %}
+        <br/>
+        <a  class="btn btn-info" href="{{ path("new_doc") }}" role="button"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        {% endif %}
+
+        
+    </div>
+</div>
+
+<div class="row">
+   
+    <div class="col-9">
+    <br>
+    <h3>Liste des documents</h3>
+        <br>
+        {% if count == 1 %}
+        <div class="alert alert-dismissible alert-danger">
+        
+        <h4 class="alert-heading">Oops!! désolé .</h4>
+        <p class="mb-0"> Aucun resultat pour votre recherche  &nbsp;:( .</p>
+        </div>
+        {% else %}
+        <table class="table table-light">
+            <thead class="table-primary">
+                <tr>
+                    <td>Titre</td>
+                    <td>Domain Etude</td>
+                    <td>Autheur Indiv</td>
+                    <td>Autheur compagnie</td>
+                    <td>Numero de Feuillet</td>
+                    <td>Date</td>
+                    <td>Type</td>
+                    <td>Nom Feuillet</td>
+                    <td>Zone</td>
+                    <td>Domaine Litho</td>
+                    <td>Télecharger</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in documents %}
+
+                <tr>
+                    <td>{{ item.titre }}</td>
+                    <td>{{ item.domainEtude }}</td>
+                    <td>{{ item.autheurIndividue }}</td>
+                    <td>{{ item.autheurCompanie }}</td>
+                    <td>{{ item.numeroFeuillet }}</td>
+                    <td>{{ item.datePublication | date("d/m/Y")}}</td>
+                    <td>{{ item.typeDocument }}</td>
+                    <td>{{ item.nomFeuillet }}</td>
+                    <td>{{ item.zone }}</td>
+                    <td>{{ item.domaineLithosctructural }}</td>
+                    <td><a id="download" href="{{ path('download', {'file' : item.fileName }) }}">View Document (.pdf/.zip)</a></td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+        </table> 
+        <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2">
+            <div class="navigation pagination-sm">
+                {{ knp_pagination_render(documents) }}
+            </div>
+        </div>
+        </div>
+        
+        {% endif %}
+        
+        
+    </div>
+    
+</div>
+
+<div style="height:200px"></div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function test(event){
+        event.preventDefault();
+        const url = this.href;
+       /* axios.get(url).then(function(response){
+            if(response.status === 200){
+            console.log("ok : " + response.status);
+            console.log(response);
+            }
+        });*/
+        const type = url.substring(url.length - 3,url.length);
+        axios({
+            url: url,
+            method: 'GET',
+            responseType: 'blob', // important
+            }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'file.'+type);
+            document.body.appendChild(link);
+            link.click();
+            
+            });
+
+         
+        
+    }
+    document.querySelectorAll('#download').forEach(function(link){
+        
+        link.addEventListener('click', test);
+        
+    })
+
+</script>
+
+{% endblock %}

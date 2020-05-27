@@ -1,0 +1,221 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+
+{% block body %}
+<div class="row">
+    
+    <div class="col-11">
+    <br>
+        {{form_start(form) }}
+    <div class="row well">
+        <div class="col-3">
+            <div class="form-group">
+               <label class="required" for="zone">Nom Feuillet</label>
+                <select id="nom_f" name="nom_f" class="form-control">
+                    <option value="" selected disabled>Choisir Nom</option>
+                    {% for item in noms %}
+                    <option>{{item.libelle}}</option>                                          
+                    {% endfor %}
+                </select>
+            </div> 
+           
+           <div class="form-group">
+                <label class="required" for="zone">Zone</label>
+                <select id="zone" name="zone" class="form-control">
+                    <option value="" selected disabled>Choisir Zone</option>
+                    {% for item in zones %}
+                    <option>{{item.libelle}}</option>                                          
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Numéro de feuillet</label>
+            <input type="number" class="form-control" name="num_feuillet" id="num_feuillet" placeholder="Numéro">
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Identifiant</label>
+            <input type="text" class="form-control" name="identifiant" id="identifiant" placeholder="Identifiant">
+            </div>
+            
+        </div>
+        <div class="col-3">
+            
+            <div class="form-group">
+            <label for="exampleInputPassword1">Coordonne X</label>
+            <input type="number" class="form-control" name="cor_x" id="cor_x" placeholder="Coordonne X">
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Coordonne Y</label>
+            <input type="number" class="form-control" name="cor_y" id="cor_y" placeholder="Coordonne Y">
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Nom</label>
+            <input type="text" class="form-control" name="nom" id="nom" placeholder="Nom">
+            </div>
+            <div class="form-group">
+                <label class="required" for="zone">Étape</label>
+                <select id="etape" name="etape" class="form-control">
+                    <option value="" selected disabled>Choisir Étape</option>
+                    {% for item in etape %}
+                    <option>{{item.libelle}}</option>                                          
+                    {% endfor %}                
+                </select>
+            </div>
+            
+           
+
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label class="required" for="zone">Catégorie</label>
+                <select id="cat" name="cat" class="form-control">
+                    <option value="" selected disabled>Choisir Catégorie</option>
+                    {% for item in cat %}
+                    <option>{{item.libelle}}</option>                                          
+                    {% endfor %}                 
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="required" for="zone">Typologie</label>
+                <select id="typologie" name="typologie" class="form-control">
+                    <option value="" selected disabled>Choisir Typologie</option>
+                    {% for item in typologie %}
+                    <option>{{item.libelle}}</option>                                          
+                    {% endfor %}                    
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="required" for="zone">Année de découverte</label>
+                <select id="annee" name="annee" class="form-control">
+                    <option value="" selected disabled>Choisir Année</option>
+                    {% for item in years %}
+                    <option >{{item}}</option>
+                    {% endfor %}
+                                     
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="required" for="zone">Statut substance</label>
+                <select id="statut" name="statut" class="form-control">
+                    <option value="" selected disabled>Choisir Statut</option>
+                    {% for item in statut %}
+                    <option>{{item.libelle}}</option>                                          
+                    {% endfor %}                
+                </select>
+            </div>
+            
+        </div>
+       <div class="col-3">
+            <div class="form-group">
+                <label class="required" for="zone">Élément chimique</label>
+                <select id="element" name="element" class="form-control">
+                    <option value="" selected disabled>Choisir Élément</option>
+                    {% for item in elements %}
+                    <option>{{item.libelle}}</option>                                          
+                    {% endfor %}                 
+                </select>
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Teneur</label>
+            <input type="number" class="form-control" name="teneur" id="teneur" placeholder="Teneur">
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Lithologie</label>
+            <input type="text" class="form-control" name="lithologie" id="lithologie" placeholder="Lithologie">
+            </div>
+       </div>
+
+    </div>
+    <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2"><a class="btn btn-warning" href=""><button type="submit"  class="btn btn-warning"><i class="fa fa-search" aria-hidden="true"></i></span></button></a></div>
+    </div>
+        
+
+{{form_end(form)}}
+        
+    </div>
+    <div class="col-1">
+        {% if app.user.profile.id == 2 %}
+        <br/>
+        <a  class="btn btn-info" href="{{ path("new_ressources") }}" role="button"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        {% endif %}
+
+        
+    </div>
+</div>
+
+<div class="row">
+   
+    <div class="col-9">
+    <br>
+    <h3>Liste des documents</h3>
+        <br>
+        {% if count == 1 %}
+        <div class="alert alert-dismissible alert-danger">
+        
+        <h4 class="alert-heading">Oops!! désolé .</h4>
+        <p class="mb-0"> Aucun resultat pour votre recherche  &nbsp;:( .</p>
+        </div>
+        {% else %}
+        <table class="table table-light">
+            <thead class="table-primary">
+                <tr>
+                    <td>Nom Feuillet</td>
+                    <td>Zone</td>
+                    <td>Numero de Feuillet</td>
+                    <td>Nom</td>
+                    <td>Étape</td>
+                    <td>Catégorie</td>
+                    <td>Typologie</td>
+                    <td>Année de découverte</td>
+                    <td>Statut substance</td>
+                    <td>Élément chimique</td>
+                    <td>Teneur</td>
+                    <td>Lithologie</td>
+                    <td>Télecharger</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in documents %}
+
+                <tr>
+                    <td>{{ item.nomFeuillet }}</td>
+                    <td>{{ item.zone }}</td>
+                    <td>{{ item.numeroFeuillet }}</td>
+                    <td>{{ item.nom }}</td>
+                    <td>{{ item.etape }}</td>
+                    <td>{{ item.categorie }}</td>
+                    <td>{{ item.typologie }}</td>
+                    <td>{{ item.annee }}</td>
+                    <td>{{ item.statut }}</td>
+                    <td>{{ item.elementChimique }}</td>
+                    <td>{{ item.teneur }}</td>
+                    <td>{{ item.lithologie }}</td>
+                    <td><a href="{{ path('download', {'file' : item.fileName }) }}">View Document (.pdf/.zip)</a></td>
+                    
+                </tr>
+                {% endfor %}  
+            </tbody>
+            
+        </table> 
+        <div class="row">
+        <div class="col-9"></div>
+        <div class="col-3">
+            <div class="navigation pagination-sm">
+                 {{ knp_pagination_render(documents) }}  
+            </div>
+        </div>
+        </div>
+        
+        {% endif %}
+        
+        
+    </div>
+    
+</div>
+
+<div style="height:300px"></div>
+
+{% endblock %}

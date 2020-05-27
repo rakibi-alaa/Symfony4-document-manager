@@ -1,0 +1,252 @@
+{% extends 'base_admin.html.twig' %}
+
+
+
+{% block body %}
+
+<br>
+<div class="row">
+    {# ************ Étape **************  #}
+    <div class="col-4 jumbotron">
+        <h5>Étape :</h5>
+        <table class="table">
+            <thead class=" table-primary">
+                <tr>
+                    <td>Libelle</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in etape %}
+                <tr class="table-light">
+                    <td>{{ item.libelle }}</td>
+                    <td><a id="del" data-toggle="confirmation" data-message="Voulez vous vraiment supprimer cette Etape ?" value="Delete post" class="btn btn-danger" href="{{ path('delete_etape' , {'id' : item.id }) }}"><i class="fa fa-minus"></i></a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="navigation pagination-sm">
+                 {{ knp_pagination_render(etape) }} 
+        </div>
+            
+            <form action=" {{ path('add_etape') }} " method="POST">
+            <div class="row">
+            <div class="col-7 form-group">
+            
+            <input type="text" required class="form-control" name="add_etape" id="add_etape" placeholder="Nouvelle Etape">
+            </div>
+            <div class="col-1"><button type="submit"  class="btn btn-warning"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+            </div>
+            
+            
+            
+            </form>
+    </div>
+
+    {# ************ Espace **************  #}
+    <div class="col-1"></div>
+    {# ************ Catégorie **************  #}
+    <div class="col-3 jumbotron">
+        <h5>Catégorie :</h5>
+        <table class="table">
+            <thead class=" table-primary">
+                <tr>
+                    <td>Libelle</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in categorie %}
+                <tr class="table-light">
+                    <td>{{ item.libelle }}</td>
+                    <td><a id="del" data-toggle="confirmation" data-message="Voulez vous vraiment supprimer cette catégorie ?" value="Delete post" class="btn btn-danger" href="{{ path('delete_cat' , {'id' : item.id }) }}"><i class="fa fa-minus"></i></a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="navigation pagination-sm">
+                 {{ knp_pagination_render(categorie) }} 
+        </div>
+            
+            <form action=" {{ path('add_cat') }} " method="POST">
+            <div class="row">
+            <div class="col-7 form-group">
+            
+            <input type="text" required class="form-control" name="add_cat" id="add_cat" minlength="5" placeholder="Nouvelle Catégorie">
+            </div>
+            <div class="col-1"><button type="submit"  class="btn btn-warning"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+            </div>
+            
+            
+            
+            </form>
+    </div>
+    {# ************ Espace **************  #}
+    <div class="col-1"></div>
+    {# ************ Statut substance **************  #}
+    <div class="col-3 jumbotron">
+        <h5>Statut substance :</h5>
+        <table class="table">
+            <thead class=" table-primary">
+                <tr>
+                    <td>Libelle</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in statut %}
+                <tr class="table-light">
+                    <td>{{ item.libelle }}</td>
+                    <td><a id="del" data-toggle="confirmation" data-message="Voulez vous vraiment supprimer ce Statut ?" value="Delete post" class="btn btn-danger" href="{{ path('delete_statut' , {'id' : item.id }) }}"><i class="fa fa-minus"></i></a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="navigation pagination-sm">
+                 {{ knp_pagination_render(statut) }} 
+        </div>
+            
+            <form action=" {{ path('add_statut') }} " method="POST">
+            <div class="row">
+            <div class="col-7 form-group">
+            
+            <input type="text" required class="form-control" name="add_statut" id="add_statut" minlength="5" placeholder="Nouveau Statut">
+            </div>
+            <div class="col-1"><button type="submit"  class="btn btn-warning"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+            </div>
+            
+            
+            
+            </form>
+    </div>
+</div>
+
+<br/>
+
+<div class="row">
+    {# ************ Typologie **************  #}
+    <div class="col-4 jumbotron">
+        <h5>Typologie :</h5>
+        <table class="table">
+            <thead class=" table-primary">
+                <tr>
+                    <td>Libelle</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in typologie %}
+                <tr class="table-light">
+                    <td>{{ item.libelle }}</td>
+                    <td><a id="del" data-toggle="confirmation" data-message="Voulez vous vraiment supprimer cette Typologie ?" value="Delete post" class="btn btn-danger" href="{{ path('delete_typo' , {'id' : item.id }) }}"><i class="fa fa-minus"></i></a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="navigation pagination-sm">
+                 {{ knp_pagination_render(typologie) }} 
+        </div>
+            
+            <form action=" {{ path('add_typo') }} " method="POST">
+            <div class="row">
+            <div class="col-7 form-group">
+            
+            <input type="text" required class="form-control" name="add_typo" id="add_typo" placeholder="Nouvelle Typologie">
+            </div>
+            <div class="col-1"><button type="submit"  class="btn btn-warning"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+            </div>
+            
+            
+            
+            </form>
+    </div>
+
+    {# ************ Espace **************  #}
+    <div class="col-2"></div>
+    {# ************ Elements Chimiques **************  #}
+    <div class="col-4 jumbotron">
+        <h5>Elements Chimiques :</h5>
+        <table class="table">
+            <thead class=" table-primary">
+                <tr>
+                    <td>Libelle</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in elements %}
+                <tr class="table-light">
+                    <td>{{ item.libelle }}</td>
+                    <td><a id="del" data-toggle="confirmation" data-message="Voulez vous vraiment supprimer cet Element ?" value="Delete post" class="btn btn-danger" href="{{ path('delete_elements' , {'id' : item.id }) }}"><i class="fa fa-minus"></i></a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="navigation pagination-sm">
+                 {{ knp_pagination_render(elements) }} 
+        </div>
+            
+            <form action=" {{ path('add_elements') }} " method="POST">
+            <div class="row">
+            <div class="col-7 form-group">
+            
+            <input type="text" required class="form-control" name="add_el" id="add_el" placeholder="Nouveau Element">
+            </div>
+            <div class="col-1"><button type="submit"  class="btn btn-warning"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+            </div>
+            
+            
+            
+            </form>
+    </div>
+</div>
+
+{% endblock %}
+{% block javascripts %}
+
+<script type="text/javascript">
+  $(document).ready(function(event) {
+   
+   
+$('[data-toggle="confirmation"][data-message]').on('click', function (event) {
+    var message = $(this).data('message');
+
+    return confirm(message) || event.preventDefault();
+});
+    
+ 
+  }); 
+</script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function test(event){
+        event.preventDefault();
+        const url = this.href;
+        let statut = null;
+        let element = this.parentNode.parentNode;
+        axios.get(url).then(function(response){
+            if(response.status === 200){
+            element.innerHTML = "";
+            console.log("ok : " + response.status);
+            }
+        });
+
+         
+        
+    }
+    document.querySelectorAll('#del').forEach(function(link){
+        
+        link.addEventListener('click', test);
+        
+    })
+
+</script>
+
+
+{% endblock %}

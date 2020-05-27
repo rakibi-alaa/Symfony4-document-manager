@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+{% form_theme formDocument 'bootstrap_4_layout.html.twig' %}
+
+
+{% block body %}
+<br>
+<h1>Ajout d'un document</h1>
+<br>
+
+    {{form_start(formDocument) }}
+    <div class="row">
+       
+        <div class="col-4">
+            {{form_row(formDocument.titre , {"label" : "Titre du document" , "attr" : {"placeholder" : "Titre ..."}}) }}
+            {{form_row(formDocument.domainEtude, {"label" : "Domain d'étude" , "attr" : {"placeholder" : "Domain ..."}}) }}
+            {{form_row(formDocument.autheurIndividue, {"label" : "Autheur Individue" , "attr" : {"placeholder" : "Autheur ..."}}) }}
+            {{form_row(formDocument.autheurCompanie, {"label" : "Autheur Compagnie" , "attr" : {"placeholder" : "Autheur ..."}}) }}
+            {{form_row(formDocument.numeroFeuillet, {"label" : "Numéro de feuillet" , "attr" : {"placeholder" : "Numéro ..." , "pattern" : "[0-9]+"}}) }}
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label class="required" for="zone">Type Document</label>
+                <select id="type" name="type" class="form-control">
+                    {% for item in types %}
+                    <option >{{ item.libelle }}</option>
+                {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="required" for="">Nom de feuillet</label>
+                <select id="nom" name="nom" class="form-control">
+                {% for item in noms %}
+                    <option >{{ item.libelle }}</option>
+                {% endfor %}
+                    
+                    
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="required" for="zone">Zone</label>
+                <select id="zone" name="zone" class="form-control">
+                {% for item in zones %}
+                    <option >{{ item.libelle }}</option>
+                {% endfor %}
+                    
+                    
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="required" for="zone">Domain Lithostructural</label>
+                <select id="domain_litho" name="domain_litho" class="form-control">
+                    {% for item in domains %}
+                    <option >{{ item.libelle }}</option>
+                {% endfor %}
+                </select>
+            </div>
+            {{form_row(formDocument.fileName , {"label" : "Choississez votre fichier "})}}
+        </div>
+    </div>
+<div class="row" style="height:300px">
+    <div class="col-7"></div>
+    <div class="col-2"><br/><button type="submit" class="btn btn-success">Enregistrer</button></div>
+    
+</div>
+{{ form_rest(formDocument) }}
+{{form_end(formDocument) }}
+
+
+
+
+
+
+
+{% endblock %}

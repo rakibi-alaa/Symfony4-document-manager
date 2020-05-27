@@ -1,0 +1,223 @@
+{% extends 'base_admin.html.twig' %}
+
+
+
+{% block body %}
+
+<br>
+<div class="row">
+    {# ************ Objet analysé **************  #}
+    <div class="col-4 jumbotron">
+        <h5>Objet analysé :</h5>
+        <table class="table">
+            <thead class=" table-primary">
+                <tr>
+                    
+                    <td>Libelle</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in objets %}
+                <tr class="table-light">
+                    
+                    <td>{{ item.libelle }}</td>
+                    <td><a id="del" data-toggle="confirmation" data-message="Voulez vous vraiment supprimer cet objet ?" value="Delete post" class="btn btn-danger" href="{{ path('delete_objet' , {'id' : item.id }) }}"><i class="fa fa-minus"></i></a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="navigation pagination-sm">
+                 {{ knp_pagination_render(objets) }} 
+        </div>
+            
+            <form action=" {{ path('add_objet') }} " method="POST">
+            <div class="row">
+            <div class="col-7 form-group">
+            
+            <input type="text" required class="form-control" name="add_objet" id="add_objet" placeholder="Nouveau Objet">
+            </div>
+            <div class="col-1"><button type="submit"  class="btn btn-warning"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+            </div>
+            
+            
+            
+            </form>
+    </div>
+
+    {# ************ Espace **************  #}
+    <div class="col-2"></div>
+    {# ************ Minéral analysé **************  #}
+    <div class="col-4 jumbotron">
+        <h5>Minéral analysé :</h5>
+        <table class="table">
+            <thead class=" table-primary">
+                <tr>
+                    
+                    <td>Libelle</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in minerales %}
+                <tr class="table-light">
+                    
+                    <td>{{ item.libelle }}</td>
+                    <td><a id="del" data-toggle="confirmation" data-message="Voulez vous vraiment supprimer ce minerale ?" value="Delete post" class="btn btn-danger" href="{{ path('delete_mineral' , {'id' : item.id }) }}"><i class="fa fa-minus"></i></a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="navigation pagination-sm">
+                 {{ knp_pagination_render(minerales) }} 
+        </div>
+            
+            <form action=" {{ path('add_mineral') }} " method="POST">
+            <div class="row">
+            <div class="col-7 form-group">
+            
+            <input type="text" required class="form-control" name="add_mineral" id="add_mineral" minlength="5" placeholder="Nouveau Minerale">
+            </div>
+            <div class="col-1"><button type="submit"  class="btn btn-warning"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+            </div>
+            
+            
+            
+            </form>
+    </div>
+</div>
+
+<br/>
+
+<div class="row">
+    {# ************ Élément chimique **************  #}
+    <div class="col-4 jumbotron">
+        <h5>Élément chimique :</h5>
+        <table class="table">
+            <thead class=" table-primary">
+                <tr>
+                    
+                    <td>Libelle</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in elements %}
+                <tr class="table-light">
+                    
+                    <td>{{ item.libelle }}</td>
+                    <td><a  id="del" data-toggle="confirmation" data-message="Voulez vous vraiment supprimer cet element ?" value="Delete post" class="btn btn-danger" href="{{ path('delete_element' , {'id' : item.id }) }}"><i class="fa fa-minus"></i></a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="navigation pagination-sm">
+                 {{ knp_pagination_render(elements) }} 
+        </div>
+            
+            <form action=" {{ path('add_element') }} " method="POST">
+            <div class="row">
+            <div class="col-7 form-group">
+            
+            <input type="text" required class="form-control" name="add_element" id="add_element" placeholder="Nouveau element">
+            </div>
+            <div class="col-1"><button type="submit"  class="btn btn-warning"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+            </div>
+            
+            
+            
+            </form>
+    </div>
+
+    {# ************ Espace **************  #}
+    <div class="col-2"></div>
+    {# ************ Méthode d'analyse **************  #}
+    <div class="col-4 jumbotron">
+        <h5>Méthode d'analyse :</h5>
+        <table class="table">
+            <thead class=" table-primary">
+                <tr>
+                    
+                    <td>Libelle</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in methodes %}
+                <tr class="table-light">
+                    
+                    <td>{{ item.libelle }}</td>
+                    <td><a id="del" data-toggle="confirmation" data-message="Voulez vous vraiment supprimer cette methode ?" value="Delete post" class="btn btn-danger" href="{{ path('delete_methode' , {'id' : item.id }) }}"><i class="fa fa-minus"></i></a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="navigation pagination-sm">
+                 {{ knp_pagination_render(methodes) }} 
+        </div>
+            
+            <form action=" {{ path('add_methode') }} " method="POST">
+            <div class="row">
+            <div class="col-7 form-group">
+            
+            <input type="text" required class="form-control" name="add_methode" id="add_methode" placeholder="Nouvelle Methode">
+            </div>
+            <div class="col-1"><button type="submit"  class="btn btn-warning"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+            </div>
+            
+            
+            
+            </form>
+    </div>
+</div>
+
+{% endblock %}
+{% block javascripts %}
+
+<script type="text/javascript">
+  $(document).ready(function(event) {
+   
+   
+$('[data-toggle="confirmation"][data-message]').on('click', function (event) {
+    var message = $(this).data('message');
+
+    return confirm(message) || event.preventDefault();
+});
+    
+ 
+  }); 
+</script>
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function test(event){
+        event.preventDefault();
+        const url = this.href;
+        let statut = null;
+        let element = this.parentNode.parentNode;
+        axios.get(url).then(function(response){
+            if(response.status === 200){
+            //element.setAttribute("style", "display: none; transition: opacity 1s ease-out;opacity: 0; ");
+                element.innerHTML = "";
+            console.log("ok : " + response.status);
+            }
+        });
+
+         
+        
+    }
+    document.querySelectorAll('#del').forEach(function(link){
+        
+        link.addEventListener('click', test);
+        
+    })
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% form_theme formUser 'bootstrap_4_layout.html.twig' %}
+
+
+{% block body %}
+
+<h1>Inscription sur le site</h1>
+<div class="col-5">
+{{form_start(formUser) }}
+
+{{form_row(formUser.username , {"label" : "Nom d'utilisateur" , "attr" : {"placeholder" : "User name ..."}}) }}
+{{form_row(formUser.email, {"label" : "Email d'utilisateur" , "attr" : {"placeholder" : "Email adress ..."}}) }}
+<div id="p" style="display:none" >
+    {{form_row(formUser.profile)}}
+</div> 
+
+
+{{form_row(formUser.password, {"label" : "Mot de passe d'utilisateur" , "attr" : {"placeholder" : "Password ..."}}) }}
+{{form_row(formUser.confirm_password, {"label" : "Confirmation du mot de passe" , "attr" : {"placeholder" : "Confirm ..."}})}}
+<br>
+<button type="submit" class="btn btn-success">Inscription</button>
+
+{{form_end(formUser)}}
+</div>
+{% endblock %}
+{% block javascripts %}
+
+<script type="text/javascript">
+  $(document).ready(function(event) {
+   
+   
+$('#p').hide();
+    
+
+    
+   
+  }); 
+</script>
+
+
+{% endblock %}

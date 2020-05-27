@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+{% form_theme formDocument 'bootstrap_4_layout.html.twig' %}
+
+
+{% block body %}
+<br>
+<h1>Ajout d'un document chrono</h1>
+<br>
+
+    {{form_start(formDocument) }}
+    <div class="row">
+       
+        <div class="col-4">
+            <div class="form-group">
+                <label class="required" for="zone">Nom de feuillet</label>
+                <select id="nom" name="nom" class="form-control">
+                    
+                    {% for item in noms %}
+                        <option >{{item.libelle}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="required" for="zone">Zone</label>
+                <select id="zone" name="zone" class="form-control">
+                    {% for item in zones %}
+                        <option >{{item.libelle}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Numéro de feuillet</label>
+            <input type="number" class="form-control" name="num_feuillet" id="num_feuillet" placeholder="Numéro">
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Identifiant</label>
+            <input type="text" class="form-control" name="identifiant" id="identifiant" placeholder="Identifiant">
+            </div>
+            {{form_row(formDocument.fileName , {"label" : "Choississez votre fichier "})}} 
+    </div>
+        
+        <div class="col-4">
+            <div class="form-group">
+            <label for="exampleInputPassword1">Coordonne X</label>
+            <input type="number" class="form-control" name="cor_x" id="cor_x" placeholder="Coordonne X">
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Coordonne Y</label>
+            <input type="number" class="form-control" name="cor_y" id="cor_y" placeholder="Coordonne Y">
+            </div>
+            <div class="form-group">
+                <label class="required" for="zone">Système isotopique</label>
+                <select id="systeme" name="systeme" class="form-control">
+                    {% for item in systems %}
+                        <option >{{item.libelle}}</option>
+                    {% endfor %}                  
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="required" for="zone">Matétiel ou minéral analysé</label>
+                <select id="material" name="material" class="form-control">
+                    {% for item in materials %}
+                        <option >{{item.libelle}}</option>
+                    {% endfor %}                    
+                </select>
+            </div>
+            
+            
+        </div>
+    </div>
+<div class="row" style="height:300px">
+    <div class="col-7"></div>
+    <div class="col-2"><br/><button type="submit" class="btn btn-success">Enregistrer</button></div>
+    
+</div>
+{{ form_rest(formDocument) }}
+{{form_end(formDocument) }}
+
+
+
+
+
+
+
+{% endblock %}

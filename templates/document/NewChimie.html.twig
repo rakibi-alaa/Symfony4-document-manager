@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+{% form_theme formDocument 'bootstrap_4_layout.html.twig' %}
+
+
+{% block body %}
+<br>
+<h1>Ajout d'un document chimie</h1>
+<br>
+
+    {{form_start(formDocument) }}
+    <div class="row">
+       
+        <div class="col-4">
+            <div class="form-group">
+                <label class="required" for="zone">Nom Feuillet</label>
+                <select id="nom" name="nom" class="form-control">
+                    
+                    {% for item in noms %}
+                       <option >{{item.libelle}}</option> 
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="required" for="zone">Zone</label>
+                <select id="zone" name="zone" class="form-control">
+                    
+                    {% for item in zones %}
+                       <option >{{item.libelle}}</option> 
+                    {% endfor %}
+                </select>
+            </div>
+            {{form_row(formDocument.numeroFeuillet, {"label" : "Numéro de feuillet" , "attr" : {"placeholder" : "Numéro ..." , "pattern" : "[0-9]+"}}) }}
+            {{form_row(formDocument.identifiant, {"label" : "Identifiant" , "attr" : {"placeholder" : "Identifiant ..."}}) }}
+            {{form_row(formDocument.coordonneX, {"label" : "Coordonné X" , "attr" : {"placeholder" : "Coordonné X ..." , "max-length" : "20"}}) }}
+            {{form_row(formDocument.coordonneY, {"label" : "Coordonné Y" , "attr" : {"placeholder" : "Coordonné Y ..." , "max-length" : "20"}}) }}
+            {{form_row(formDocument.fileName , {"label" : "Choississez votre fichier "})}} 
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label class="required" for="objetAnalyse">Objet Analysé</label>
+                <select id="objetAnalyse" name="objetAnalyse" class="form-control">
+                    {% for item in objets %}
+                       <option >{{item.libelle}}</option> 
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="required" for="mineralAnalyse">Mineral Analysé</label>
+                <select id="mineralAnalyse" name="mineralAnalyse" class="form-control">
+                   {% for item in minerales %}
+                       <option >{{item.libelle}}</option> 
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="required" for="elementChimique">Element Chimique</label>
+                <select id="elementChimique" name="elementChimique" class="form-control">
+                    {% for item in elements %}
+                       <option >{{item.libelle}}</option> 
+                    {% endfor %}
+                </select>
+            </div>
+            {{form_row(formDocument.teneur, {"label" : "Teneur" , "attr" : {"placeholder" : "Teneur ..."}}) }}
+            <div class="form-group">
+                <label class="required" for="methodeAnalyse">Méthode d'analyse</label>
+                <select id="methodeAnalyse" name="methodeAnalyse" class="form-control">
+                    {% for item in methodes %}
+                       <option >{{item.libelle}}</option> 
+                    {% endfor %}
+                </select>
+            </div>
+            {{form_row(formDocument.NomRoche, {"label" : "Nom Roche" , "attr" : {"placeholder" : "Nom Roche ..."}}) }}
+            
+        </div>
+    </div>
+<div class="row" style="height:300px">
+    <div class="col-7"></div>
+    <div class="col-2"><br/><button type="submit" class="btn btn-success">Enregistrer</button></div>
+    
+</div>
+{{ form_rest(formDocument) }}
+{{form_end(formDocument) }}
+
+
+
+
+
+
+
+{% endblock %}

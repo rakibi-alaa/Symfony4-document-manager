@@ -1,0 +1,142 @@
+{% extends 'base_admin.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+
+{% block body %}
+
+<br>
+<div class="row">
+    {# ************ Étape **************  #}
+    <div class="col-6 jumbotron">
+        <h3>Etudiants :</h3>
+        <table class="table table-hover">
+            <thead class=" table-primary">
+                <tr>
+                    <td>Pseudo</td>
+                    <td>Email</td>
+                    <td>Activer/Désactiver</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in etudiants %}
+                <tr class="table-light">
+                    <td>{{ item.username }}</td>
+                    <td>{{ item.email }}</td>                    
+                    
+                    {% if item.activated == 0 %}
+                    <td><a class="btn btn-success" href="{{ path('activate_user'  , {'id' : item.id } ) }}"><i class="fa fa-check"></i></a></td>
+                    {% else %}
+                    <td><a class="btn btn-info" href="{{ path('deactivate_user' , {'id' : item.id }) }}"><i class="fa fa-close"></i></a></td>  
+                    {% endif %}
+                    <td><a id="del" data-toggle="confirmation"  data-message="Voulez vous vraiment supprimer ce compte ?" value="Delete post" class="btn btn-danger" href="{{ path('delete_user' , {'id' : item.id }) }}"><i class="fa fa-minus"></i></a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="navigation pagination-sm">
+                 {{ knp_pagination_render(etudiants) }} 
+        </div>
+            
+            
+    </div>
+
+    {# ************ Espace **************  #}
+    <div class="col-1"></div>
+    {# ************ Catégorie **************  #}
+    <div class="col-5 jumbotron">
+        <h3>Enseignants :</h3>
+        <table class="table table-hover">
+            <thead class=" table-primary">
+                <tr>
+                    <td>Pseudo</td>
+                    <td>Email</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in enseignant %}
+                <tr class="table-light">
+                    <td>{{ item.username }}</td>
+                    <td>{{ item.email }}</td>
+                    <td><a id="del" data-toggle="confirmation" data-message="Voulez vous vraiment supprimer ce compte ?" value="Delete post" class="btn btn-danger" href="{{ path('delete_user' , {'id' : item.id }) }}"><i class="fa fa-minus"></i></a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="navigation pagination-sm">
+               {{ knp_pagination_render(enseignant) }} 
+        </div>
+            
+            
+    </div>
+    
+</div>
+
+<br/>
+
+<div class="row justify-content-md-center">
+    {# *********** Nouveau Utilisateur **************  #}
+
+    <div class="col-6 jumbotron">
+        <h4>Nouveau Utilisateur</h4>
+        
+{{form_start(form) }}
+
+{{form_row(form.username , {"label" : "Nom d'utilisateur" , "attr" : {"placeholder" : "User name ..."}}) }}
+{{form_row(form.email, {"label" : "Email d'utilisateur" , "attr" : {"placeholder" : "Email adress ..."}}) }}
+{{form_row(form.profile)}}
+{{form_row(form.password, {"label" : "Mot de passe d'utilisateur" , "attr" : {"placeholder" : "Password ..."}}) }}
+{{form_row(form.confirm_password, {"label" : "Confirmation du mot de passe" , "attr" : {"placeholder" : "Confirm ..."}})}}
+
+<button type="submit" class="btn btn-success">Inscription</button>
+
+{{form_end(form)}}
+    </div>
+    
+</div>
+
+{% endblock %}
+{% block javascripts %}
+
+<script type="text/javascript">
+  $(document).ready(function(event) {
+   
+   
+$('[data-toggle="confirmation"][data-message]').on('click', function (event) {
+    var message = $(this).data('message');
+
+    return confirm(message) || event.preventDefault();
+});
+    
+ 
+  }); 
+</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function test(event){
+        event.preventDefault();
+        const url = this.href;
+        let statut = null;
+        let element = this.parentNode.parentNode;
+        axios.get(url).then(function(response){
+            if(response.status === 200){
+            element.innerHTML = "";
+            console.log("ok : " + response.status);
+            }
+        });
+
+         
+        
+    }
+    document.querySelectorAll('#del').forEach(function(link){
+        
+        link.addEventListener('click', test);
+        
+    })
+
+</script>
+
+{% endblock %}

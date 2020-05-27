@@ -1,0 +1,136 @@
+{% extends 'base_admin.html.twig' %}
+
+
+
+{% block body %}
+
+<br>
+<div class="row">
+    {# ************ Domain Lithostructural **************  #}
+    <div class="col-4 jumbotron">
+        <h5>Domain Lithostructural :</h5>
+        <table class="table">
+            <thead class=" table-primary">
+                <tr>
+                    <td>Libelle</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in domains %}
+                <tr class="table-light">
+                    <td>{{ item.libelle }}</td>
+                    <td><a id="del" data-toggle="confirmation" data-message="Voulez vous vraiment supprimer ce domain ?" value="Delete post" class="btn btn-danger" href="{{ path('delete_domain' , {'id' : item.id }) }}"><i class="fa fa-minus"></i></a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="navigation pagination-sm">
+                 {{ knp_pagination_render(domains) }} 
+        </div>
+            
+            <form action=" {{ path('add_domain') }} " method="POST">
+            <div class="row">
+            <div class="col-7 form-group">
+            
+            <input type="text" required class="form-control" name="add_domain" id="add_domain" placeholder="Nouveau Domain">
+            </div>
+            <div class="col-1"><button type="submit"  class="btn btn-warning"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+            </div>
+            
+            
+            
+            </form>
+    </div>
+
+    {# ************ Espace **************  #}
+    <div class="col-2"></div>
+    {# ************ Type **************  #}
+    <div class="col-4 jumbotron">
+        <h5>Type Document :</h5>
+        <table class="table">
+            <thead class=" table-primary">
+                <tr>
+                    <td>Libelle</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in types %}
+                <tr class="table-light">
+                    <td>{{ item.libelle }}</td>
+                    <td><a id="del" data-toggle="confirmation" data-message="Voulez vous vraiment supprimer ce Type ?" value="Delete post" class="btn btn-danger" href="{{ path('delete_type' , {'id' : item.id }) }}"><i class="fa fa-minus"></i></a></td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="navigation pagination-sm">
+                 {{ knp_pagination_render(types) }} 
+        </div>
+            
+            <form action=" {{ path('add_type') }} " method="POST">
+            <div class="row">
+            <div class="col-7 form-group">
+            
+            <input type="text" required class="form-control" name="add_type" id="add_type" minlength="5" placeholder="Nouveau Type">
+            </div>
+            <div class="col-1"><button type="submit"  class="btn btn-warning"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
+            </div>
+            
+            
+            
+            </form>
+    </div>
+</div>
+
+
+
+{% endblock %}
+{% block javascripts %}
+
+<script type="text/javascript">
+  $(document).ready(function(event) {
+   
+   
+$('[data-toggle="confirmation"][data-message]').on('click', function (event) {
+    var message = $(this).data('message');
+
+    return confirm(message) || event.preventDefault();
+});
+    
+
+    
+   
+  }); 
+</script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function test(event){
+        event.preventDefault();
+        const url = this.href;
+        let statut = null;
+        let element = this.parentNode.parentNode;
+        axios.get(url).then(function(response){
+            if(response.status === 200){
+            //element.setAttribute("style", "display: none; transition: opacity 1s ease-out;opacity: 0; ");
+                element.innerHTML = "";
+            console.log("ok : " + response.status);
+            }
+        });
+
+         
+        
+    }
+    document.querySelectorAll('#del').forEach(function(link){
+        
+        link.addEventListener('click', test);
+        
+    })
+
+</script>
+
+
+{% endblock %}

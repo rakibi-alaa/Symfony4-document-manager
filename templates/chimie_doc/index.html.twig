@@ -1,0 +1,187 @@
+{% extends 'base.html.twig' %}
+ {% form_theme form 'bootstrap_4_layout.html.twig' %} 
+
+
+{% block body %}
+<div class="row">
+    
+    <div class="col-10">
+    <br>
+        {{form_start(form) }}
+    <div class="row well">
+        <div class="col-4">
+            <div class="form-group">
+                <label class="required" for="zone">Nom Feuillet</label>
+                <select id="nom" name="nom" class="form-control">
+                    <option value="" selected disabled>Choisir Nom Feuillet</option>
+                    {% for item in noms %}
+                       <option >{{item.libelle}}</option> 
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="required" for="zone">Zone</label>
+                <select id="zone" name="zone" class="form-control">
+                    <option value="" selected disabled>Choisir Zone</option>
+                    {% for item in zones %}
+                       <option >{{item.libelle}}</option> 
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Numéro de feuillet</label>
+            <input type="number" class="form-control" name="num_feuillet" id="num_feuillet" placeholder="Titre">
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Identifiant</label>
+            <input type="text" class="form-control" name="identifiant" id="identifiant" placeholder="Domain">
+            </div>
+            
+            
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+            <label for="exampleInputPassword1">Coordonne X</label>
+            <input type="number" class="form-control" name="cor_x" id="cor_x" placeholder="Titre">
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Coordonne Y</label>
+            <input type="number" class="form-control" name="cor_y" id="cor_y" placeholder="Titre">
+            </div>
+            <div class="form-group">
+                <label class="required" for="objetAnalyse">Objet Analysé</label>
+                <select id="objetAnalyse" name="objetAnalyse" class="form-control">
+                    <option value="" selected disabled>Choisir Objet</option>
+                    {% for item in objets %}
+                       <option >{{item.libelle}}</option> 
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="required" for="mineralAnalyse">Mineral Analysé</label>
+                <select id="mineralAnalyse" name="mineralAnalyse" class="form-control">
+                    <option value="" selected disabled>Choisir Mineral</option>
+                    {% for item in minerales %}
+                       <option >{{item.libelle}}</option> 
+                    {% endfor %}
+                </select>
+            </div>
+            
+    
+
+        </div>
+        <div class="col-4">
+            
+            <div class="form-group">
+                <label class="required" for="elementChimique">Element Chimique</label>
+                <select id="elementChimique" name="elementChimique" class="form-control">
+                    <option value="" selected disabled>Choisir Element</option>
+                    {% for item in elements %}
+                       <option >{{item.libelle}}</option> 
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Teneur</label>
+            <input type="text" class="form-control" name="teneur" id="teneur" placeholder="Domain">
+            </div>
+            <div class="form-group">
+                <label class="required" for="methodeAnalyse">Méthode d'analyse</label>
+                <select id="methodeAnalyse" name="methodeAnalyse" class="form-control">
+                    <option value="" selected disabled>Choisir Méthode</option>
+                    {% for item in methodes %}
+                       <option >{{item.libelle}}</option> 
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Nom de Roche</label>
+            <input type="text" class="form-control" name="nomRoche" id="nomRoche" placeholder="Domain">
+            </div>
+    
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2"><a class="btn btn-warning" href=""><button type="submit"  class="btn btn-warning"><i class="fa fa-search" aria-hidden="true"></i></span></button></a></div>
+    </div>
+        
+
+{{form_end(form)}} 
+        
+    </div>
+    <div class="col-1">
+        {% if app.user.profile.id == 2 %}
+        <br/>
+        <a  class="btn btn-info" href="{{ path("new_DocChimie") }}" role="button"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        {% endif %}
+
+        
+    </div>
+</div>
+
+ <div class="row">
+   
+    <div class="col-9">
+    <br>
+    <h3>Liste des documents</h3>
+        <br>
+        {% if count == 1 %}
+        <div class="alert alert-dismissible alert-danger">
+        
+        <h4 class="alert-heading">Oops!! désolé .</h4>
+        <p class="mb-0"> Aucun resultat pour votre recherche  &nbsp;:( .</p>
+        </div>
+        {% else %}
+        <table class="table table-light">
+            <thead class="table-primary">
+                <tr>
+                    <td>Nom Feuillet</td>
+                    <td>Numero de Feuillet</td>
+                    <td>Zone</td>
+                    <td>Identifiant</td>
+                    <td>Coordonne X</td>
+                    <td>Coordonne Y</td>
+                    <td>Objet Analysé</td>
+                    <td>Mineral Analysé</td>
+                    <td>teneur</td>
+                    <td>Méthode d'analyse</td>
+                    <td>Nom du Roche</td>
+                    <td>Element Chimique</td>
+                    <td>Télecharger</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in documents %}
+
+                <tr>
+                    <td>{{ item.nomFeuillet }}</td>
+                    <td>{{ item.numeroFeuillet }}</td>
+                    <td>{{ item.zone }}</td>
+                    <td>{{ item.identifiant }}</td>
+                    <td>{{ item.coordonneX }}</td>
+                    <td>{{ item.coordonneY }}</td>
+                    <td>{{ item.objetAnalyse }}</td>
+                    <td>{{ item.mineralAnalyse }}</td>
+                    <td>{{ item.teneur }}</td>
+                    <td>{{ item.methodeAnalyse }}</td>
+                    <td>{{ item.NomRoche }}</td>
+                    <td>{{ item.elementChimique }}</td>
+                    <td><a href="{{ path('download', {'file' : item.fileName }) }}">View Document (.pdf/.zip)</a></td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+        </table> 
+        {% endif %}
+        
+        
+    </div>
+    
+</div>
+
+<div style="height:300px"></div>
+
+{% endblock %}

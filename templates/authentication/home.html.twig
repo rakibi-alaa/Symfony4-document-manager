@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+<br/>
+{% if not app.user %}
+
+<h2>Bienvenue dans le site </h2>
+{% else %}
+  <h2>Bienvenue {{ app.user.profile.libelle }} </h2>
+  
+  {% if app.user.profile.id == 1 and app.user.activated == 0 %}
+  <br>
+  <div class="alert alert-dismissible alert-info col-4">
+  Votre compte est en cours de validation .
+</div>
+  {% endif %}
+  
+  
+{% endif %}
+
+<br/>
+<img src="http://placehold.it/350x150" alt="" style="display:block">
+
+<br/>
+<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit quam deserunt, in dolorum atque
+ sunt optio facere perferendis nam quidem corporis veritatis sit dolores corrupti delectus facilis ipsam
+  perspiciatis ab, ad dolorem ipsa. Quis, sit earum corporis voluptatibus sunt quos dolorum, natus ipsum 
+  at molestias consequuntur! Nemo aspernatur sed dicta.</p>
+
+  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit quam deserunt, in dolorum atque
+ sunt optio facere perferendis nam quidem corporis veritatis sit dolores corrupti delectus facilis ipsam
+  perspiciatis ab, ad dolorem ipsa. Quis, sit earum corporis voluptatibus sunt quos dolorum, natus ipsum 
+  at molestias consequuntur! Nemo aspernatur sed dicta.</p>
+{% endblock %}
